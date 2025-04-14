@@ -1,6 +1,6 @@
 /*
  * Name: Carolina Gonzalez
- * File: patient-form.js
+ * File: homework3.js
  * Date Created: 2025-02-03
  * Date Updated: 2025-04-13
  * Purpose: JavaScript for MIS 3371 HW3 - Patient Registration Form with validation
