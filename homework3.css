@@ -2,7 +2,7 @@
  * Name: Carolina Gonzalez
  * File: homework3.css
  * Date Created: 2025-02-03
- * Date Updated: 2025-04-13
+ * Date Updated: 2025-04-14
  * Purpose: CSS for MIS 3371 HW3 - Patient Registration Form
  */
 
@@ -226,6 +226,48 @@ input[type="reset"]:hover {
 
 .checkbox-item input[type="checkbox"] {
     margin-right: 10px;
+}
+
+/* Thank You Page Styles */
+.thank-you-container {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.thank-you-message {
+    font-size: 1.8em;
+    color: #1e90ff;
+    margin-bottom: 20px;
+}
+
+.contact-message {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.home-button {
+    display: inline-block;
+    background-color: #1e90ff;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.home-button:hover {
+    background-color: #0c6cd9;
+}
+
+.checkmark {
+    color: #28a745;
+    font-size: 5em;
+    margin-bottom: 20px;
 }
 
 /* Footer Styles */
