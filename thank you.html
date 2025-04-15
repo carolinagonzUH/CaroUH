@@ -1,0 +1,102 @@
+<!doctype html>
+<!-- 
+    Name: Carolina Gonzalez  
+    File: thankyou.html
+    Date Created: 2025-04-14
+    Purpose: Thank you page for patient registration form submission
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Red Health Medical - Thank You</title>
+
+        <!-- Load external CSS styles -->
+        <link rel="stylesheet" href="homework3.css">
+        <style>
+            /* Additional styles specific to thank you page */
+            .thank-you-container {
+                text-align: center;
+                padding: 50px 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+            }
+            
+            .thank-you-message {
+                font-size: 1.8em;
+                color: #1e90ff;
+                margin-bottom: 20px;
+            }
+            
+            .contact-message {
+                font-size: 1.2em;
+                margin-bottom: 30px;
+            }
+            
+            .home-button {
+                display: inline-block;
+                background-color: #1e90ff;
+                color: white;
+                text-decoration: none;
+                padding: 12px 30px;
+                border-radius: 4px;
+                font-size: 1.1em;
+                transition: background-color 0.3s;
+            }
+            
+            .home-button:hover {
+                background-color: #0c6cd9;
+            }
+            
+            .checkmark {
+                color: #28a745;
+                font-size: 5em;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <header>
+                <img src="Cliniclogo.png" alt="Red Health Medical Logo" class="logo">
+                <h1>Red Health Medical</h1>
+                <p id="current-date">Thank you for choosing Red Health Medical</p>
+            </header>
+
+            <main>
+                <div class="thank-you-container">
+                    <div class="checkmark">✓</div>
+                    <h2 class="thank-you-message">Thank You for Your Submission!</h2>
+                    <p class="contact-message">Your registration has been received. We will be contacting you shortly.</p>
+                    <a href="index.html" class="home-button">Return to Home</a>
+                </div>
+            </main>
+
+            <footer>
+                <div class="contact-info">
+                    <p>Red Health Medical</p>
+                    <p>PO BOX 18881</p>
+                    <p>Sugar Land TX 77496</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://facebook.com/RedHealthMedical" target="_blank">Facebook</a> |
+                    <a href="https://twitter.com/RedHealthMedical" target="_blank">Twitter</a> |
+                    <a href="https://instagram.com/RedHealthMedical" target="_blank">Instagram</a>
+                </div>
+                <div class="logo-container">
+                    <img src="socialmedialogo.png" alt="Social Media Logos" class="logo-bottom">
+                </div>
+                <p>© 2025 Red Health Medical. All rights reserved.</p>
+            </footer>
+        </div>
+
+        <script>
+            // Set today's date
+            window.onload = function() {
+                document.getElementById("current-date").textContent = "Today's date: " + new Date().toLocaleDateString();
+            };
+        </script>
+    </body>
+</html>
