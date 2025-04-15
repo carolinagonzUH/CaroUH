@@ -2,7 +2,7 @@
  * Name: Carolina Gonzalez
  * File: homework3.js
  * Date Created: 2025-02-03
- * Date Updated: 2025-04-13
+ * Date Updated: 2025-04-14
  * Purpose: JavaScript for MIS 3371 HW3 - Patient Registration Form with validation
  */
 
@@ -33,7 +33,8 @@ window.onload = function() {
         // Validate form and submit if valid
         if (validateEntireForm()) {
             alert("Form submitted successfully!");
-            this.submit();
+            // Redirect to thank you page instead of direct submission
+            window.location.href = "thankyou.html";
         }
     });
    
@@ -48,7 +49,8 @@ window.onload = function() {
    
     // Add confirm & submit button functionality
     document.getElementById("confirmSubmit").addEventListener("click", function() {
-        document.getElementById("patientForm").submit();
+        // Redirect to thank you page instead of direct submission
+        window.location.href = "thankyou.html";
     });
 };
 
@@ -599,4 +601,3 @@ function reviewFormData() {
     // Scroll to the top of the review section
     window.scrollTo(0, 0);
 }
-
