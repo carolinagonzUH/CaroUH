@@ -600,4 +600,61 @@ function reviewFormData() {
    
     // Scroll to the top of the review section
     window.scrollTo(0, 0);
+    
+    // Cookies
+    function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        expires = "expires=" + d.toUTCString();
+    }
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
+
+    function getCookie(name) {
+    const cname = name + "=";
+    const decoded = decodeURIComponent(document.cookie);
+    const ca = decoded.split(';');
+    for (let c of ca) {
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(cname) == 0) return c.substring(cname.length, c.length);
+    }
+    return "";
+}
+
+    function eraseCookie(name) {
+    document.cookie = name+'=; Max-Age=0; path=/';
+}
+
+    // Load on page
+    window.addEventListener("DOMContentLoaded", () => {
+    const user = getCookie("firstName");
+    const greeting = document.createElement("p");
+    greeting.id = "welcomeMessage";
+    const header = document.querySelector("header");
+    if (user) {
+        greeting.textContent = `Welcome back, ${user}!`;
+        document.getElementById("firstName").value = user;
+    } else {
+        greeting.textContent = "Welcome to Red Health Medical!";
+    }
+    header.appendChild(greeting);
+
+    document.getElementById("rememberMe").addEventListener("change", function () {
+        if (this.checked) {
+            const firstName = document.getElementById("firstName").value;
+            if (firstName) {
+                setCookie("firstName", firstName, 2); // 48 hours
+            }
+        }
+    });
+
+    document.getElementById("resetUser").addEventListener("change", function () {
+        if (this.checked) {
+            eraseCookie("firstName");
+            location.reload();
+        }
+    });
+});
+
