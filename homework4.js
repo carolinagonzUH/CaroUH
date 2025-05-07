@@ -3,7 +3,7 @@
  * File: homework4.js
  * Date Created: 2025-02-03
  * Date Updated: 2025-04-14
- * Purpose: JavaScript for MIS 3371 HW3 - Patient Registration Form with validation
+ * Purpose: JavaScript for MIS 3371 HW4 - Patient Registration Form with validation
  */
 
 // Initialize the page when it loads
