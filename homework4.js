@@ -6,7 +6,6 @@
  * Purpose: JavaScript for MIS 3371 HW3 - Patient Registration Form with validation
  */
 
-
 // Initialize the page when it loads
 window.onload = function() {
     // Set today's date
@@ -29,6 +28,16 @@ window.onload = function() {
     document.getElementById("patientForm").addEventListener("submit", function(event) {
         // Prevent form submission until we validate
         event.preventDefault();
+        
+        // Handle Remember Me cookie
+        const firstName = document.getElementById("firstName").value;
+        const rememberMe = document.getElementById("rememberMe");
+        
+        if (rememberMe && rememberMe.checked && firstName) {
+            setCookie("firstName", firstName, 2); // 48 hours
+        } else {
+            eraseCookie("firstName");
+        }
        
         // Validate form and submit if valid
         if (validateEntireForm()) {
@@ -52,8 +61,10 @@ window.onload = function() {
         // Redirect to thank you page instead of direct submission
         window.location.href = "thankyou.html";
     });
+    
+    // Process cookie welcome message
+    handleCookieWelcome();
 };
-
 
 // Set up validation event listeners for form elements
 function setupFormEventListeners() {
@@ -464,35 +475,39 @@ function validateConfirmPassword() {
 // Function to format phone number as user types
 document.addEventListener('DOMContentLoaded', function() {
     const phoneInput = document.getElementById('phone');
-   
-    phoneInput.addEventListener('input', function(e) {
-        let input = e.target.value.replace(/\D/g, '');
-        if (input.length > 0) {
-            if (input.length <= 3) {
-                e.target.value = '(' + input;
-            } else if (input.length <= 6) {
-                e.target.value = '(' + input.substring(0, 3) + ') ' + input.substring(3);
-            } else {
-                e.target.value = '(' + input.substring(0, 3) + ') ' + input.substring(3, 6) + '-' + input.substring(6, 10);
+    
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            let input = e.target.value.replace(/\D/g, '');
+            if (input.length > 0) {
+                if (input.length <= 3) {
+                    e.target.value = '(' + input;
+                } else if (input.length <= 6) {
+                    e.target.value = '(' + input.substring(0, 3) + ') ' + input.substring(3);
+                } else {
+                    e.target.value = '(' + input.substring(0, 3) + ') ' + input.substring(3, 6) + '-' + input.substring(6, 10);
+                }
             }
-        }
-    });
+        });
+    }
    
     // Format SSN as user types
     const ssnInput = document.getElementById('ssn');
-   
-    ssnInput.addEventListener('input', function(e) {
-        let input = e.target.value.replace(/\D/g, '');
-        if (input.length > 0) {
-            if (input.length <= 3) {
-                e.target.value = input;
-            } else if (input.length <= 5) {
-                e.target.value = input.substring(0, 3) + '-' + input.substring(3);
-            } else {
-                e.target.value = input.substring(0, 3) + '-' + input.substring(3, 5) + '-' + input.substring(5, 9);
+    
+    if (ssnInput) {
+        ssnInput.addEventListener('input', function(e) {
+            let input = e.target.value.replace(/\D/g, '');
+            if (input.length > 0) {
+                if (input.length <= 3) {
+                    e.target.value = input;
+                } else if (input.length <= 5) {
+                    e.target.value = input.substring(0, 3) + '-' + input.substring(3);
+                } else {
+                    e.target.value = input.substring(0, 3) + '-' + input.substring(3, 5) + '-' + input.substring(5, 9);
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 
@@ -547,114 +562,4 @@ function reviewFormData() {
     const checkboxes = document.querySelectorAll('input[name="medicalHistory"]:checked');
     let conditions = [];
     checkboxes.forEach(checkbox => {
-        conditions.push(checkbox.value);
-    });
-   
-    reviewHTML += `<tr><td>Conditions:</td><td>${conditions.length > 0 ? conditions.join(", ") : "None selected"}</td></tr>`;
-   
-    // Insurance
-    reviewHTML += "<tr><th colspan='2'>Insurance Information</th></tr>";
-   
-    const insuranceRadios = document.getElementsByName("insurance");
-    let hasInsurance = "";
-    for (const radio of insuranceRadios) {
-        if (radio.checked) {
-            hasInsurance = radio.value;
-            break;
-        }
-    }
-    reviewHTML += `<tr><td>Has Insurance:</td><td>${hasInsurance}</td></tr>`;
-   
-    // Vaccination
-    const vaccinatedRadios = document.getElementsByName("vaccinated");
-    let isVaccinated = "";
-    for (const radio of vaccinatedRadios) {
-        if (radio.checked) {
-            isVaccinated = radio.value;
-            break;
-        }
-    }
-    reviewHTML += `<tr><td>Is Vaccinated:</td><td>${isVaccinated}</td></tr>`;
-   
-    // Health Assessment
-    reviewHTML += "<tr><th colspan='2'>Health Assessment</th></tr>";
-    reviewHTML += `<tr><td>Health Rating:</td><td>${document.getElementById("healthRating").value}/10</td></tr>`;
-   
-    if (document.getElementById("symptoms").value) {
-        reviewHTML += `<tr><td>Symptoms:</td><td>${document.getElementById("symptoms").value}</td></tr>`;
-    } else {
-        reviewHTML += `<tr><td>Symptoms:</td><td>None provided</td></tr>`;
-    }
-   
-    // Account Information
-    reviewHTML += "<tr><th colspan='2'>Account Information</th></tr>";
-    reviewHTML += `<tr><td>User ID:</td><td>${document.getElementById("userId").value}</td></tr>`;
-    reviewHTML += `<tr><td>Password:</td><td>********</td></tr>`;
-   
-    reviewHTML += "</table>";
-   
-    // Update and show the review section
-    reviewContent.innerHTML = reviewHTML;
-    form.style.display = "none";
-    reviewSection.style.display = "block";
-   
-    // Scroll to the top of the review section
-    window.scrollTo(0, 0);
-    
-    // Cookies
-    function setCookie(name, value, days) {
-    let expires = "";
-    if (days) {
-        const d = new Date();
-        d.setTime(d.getTime() + (days*24*60*60*1000));
-        expires = "expires=" + d.toUTCString();
-    }
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-    function getCookie(name) {
-    const cname = name + "=";
-    const decoded = decodeURIComponent(document.cookie);
-    const ca = decoded.split(';');
-    for (let c of ca) {
-        while (c.charAt(0) == ' ') c = c.substring(1);
-        if (c.indexOf(cname) == 0) return c.substring(cname.length, c.length);
-    }
-    return "";
-}
-
-    function eraseCookie(name) {
-    document.cookie = name+'=; Max-Age=0; path=/';
-}
-
-    // Load on page
-    window.addEventListener("DOMContentLoaded", () => {
-    const user = getCookie("firstName");
-    const greeting = document.createElement("p");
-    greeting.id = "welcomeMessage";
-    const header = document.querySelector("header");
-    if (user) {
-        greeting.textContent = `Welcome back, ${user}!`;
-        document.getElementById("firstName").value = user;
-    } else {
-        greeting.textContent = "Welcome to Red Health Medical!";
-    }
-    header.appendChild(greeting);
-
-    document.getElementById("rememberMe").addEventListener("change", function () {
-        if (this.checked) {
-            const firstName = document.getElementById("firstName").value;
-            if (firstName) {
-                setCookie("firstName", firstName, 2); // 48 hours
-            }
-        }
-    });
-
-    document.getElementById("resetUser").addEventListener("change", function () {
-        if (this.checked) {
-            eraseCookie("firstName");
-            location.reload();
-        }
-    });
-});
-
+        conditions.push(checkbox.
